@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-Магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Хедер -->
+    <header class="header">
+        <div class="container header-content">
+            <h1 class="logo">🎛️ TechShop</h1>
+            <div class="cart-summary">
+                Корзина: <span id="cart-total-price">0</span> руб.
+                <button id="open-cart-btn" class="btn">Оформить заказ</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+        <section class="catalog-section">
+            <h2>Каталог товаров</h2>
+            <!-- Карточки товаров -->
+            <div id="catalog" class="products-grid"></div>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 TechShop. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно с корзиной и формой -->
+    <div id="cart-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal-btn" class="close-btn">&times;</span>
+            
+            <h3>Ваша корзина</h3>
+            <!-- Список товаров в корзине -->
+            <div id="cart-items-list" class="cart-items"></div>
+            
+            <div class="cart-modal-total">
+                Итого: <span id="modal-total-price">0</span> руб.
+            </div>
+
+            <!-- Форма оформления заказа -->
+            <form id="order-form" class="order-form">
+                <h4>Оформление заказа</h4>
+                
+                <div class="form-group">
+                    <label for="first-name">Имя:</label>
+                    <input type="text" id="first-name" required placeholder="Иван">
+                </div>
+                
+                <div class="form-group">
+                    <label for="last-name">Фамилия:</label>
+                    <input type="text" id="last-name" required placeholder="Иванов">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Адрес доставки:</label>
+                    <input type="text" id="address" required placeholder="г. Москва, ул. Ленина, д. 1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Контактный телефон:</label>
+                    <input type="tel" id="phone" required placeholder="+7 (999) 123-45-67">
+                </div>
+                
+                <button type="submit" class="btn btn-submit">Создать заказ</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
