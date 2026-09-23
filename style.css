@@ -1,4 +1,4 @@
-/* Базовые сбросы */
+/* ================= БАЗОВЫЕ СБРОСЫ И НАСТРОЙКИ ================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,7 +21,7 @@ body {
     width: 100%;
 }
 
-/* Шапка */
+/* ================= ШАПКА САЙТА ================= */
 .header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -37,11 +37,19 @@ body {
     align-items: center;
 }
 
-.cart-summary {
+.logo {
+    font-size: 24px;
     font-weight: bold;
 }
 
-/* Кнопки */
+.cart-summary {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ================= КНОПКИ ================= */
 .btn {
     background-color: #007bff;
     color: white;
@@ -49,7 +57,7 @@ body {
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s ease;
     font-size: 14px;
 }
 
@@ -59,25 +67,29 @@ body {
 
 .btn-danger {
     background-color: #dc3545;
+    padding: 5px 10px;
+    font-size: 16px;
+    line-height: 1;
 }
 
 .btn-danger:hover {
     background-color: #bd2130;
 }
 
-/* Главный каталог */
+/* ================= КАТАЛОГ ТОВАРОВ ================= */
 .catalog-section {
     padding: 40px 0;
 }
 
 .catalog-section h2 {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки по умолчанию */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
+    width: 100%;
 }
 
 /* Карточка товара */
@@ -90,11 +102,29 @@ body {
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 15px;
+    background-color: #fcfcfc;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+/* Эффект легкого увеличения картинки при наведении на карточку */
+.product-card:hover .product-image {
+    transform: scale(1.05);
 }
 
 .product-title {
     font-size: 18px;
     margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .product-price {
@@ -104,7 +134,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* Модальное окно */
+/* ================= МОДАЛЬНОЕ ОКНО КОРЗИНЫ ================= */
 .modal {
     position: fixed;
     top: 0;
@@ -139,9 +169,15 @@ body {
     right: 20px;
     font-size: 28px;
     cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s;
 }
 
-/* Элементы корзины */
+.close-btn:hover {
+    color: #333;
+}
+
+/* Элементы внутри корзины */
 .cart-items {
     margin: 20px 0;
 }
@@ -150,15 +186,22 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 12px 0;
     border-bottom: 1px solid #eee;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .quantity-controls input {
     width: 50px;
     padding: 5px;
     text-align: center;
-    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .cart-modal-total {
@@ -166,13 +209,15 @@ body {
     font-weight: bold;
     text-align: right;
     margin-bottom: 20px;
+    color: #28a745;
 }
 
-/* Форма */
+/* ================= ФОРМА ОФОРМЛЕНИЯ ЗАКАЗА ================= */
 .order-form h4 {
     margin-bottom: 15px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #eee;
     padding-top: 15px;
+    font-size: 16px;
 }
 
 .form-group {
@@ -184,21 +229,30 @@ body {
 .form-group label {
     margin-bottom: 5px;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .form-group input {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
 .btn-submit {
     width: 100%;
     padding: 12px;
     font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-/* Подвал */
+/* ================= ПОДВАЛ ================= */
 .footer {
     background: #333;
     color: white;
@@ -207,25 +261,27 @@ body {
     margin-top: auto;
 }
 
-/* ================= АДАПТИВНОСТЬ ================= */
+/* ================= АДАПТИВНЫЙ ДИЗАЙН ================= */
 
-/* Планшеты (до 992px) */
+/* Планшеты и небольшие экраны (до 992px) */
 @media (max-width: 992px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Перестраиваем в 2 колонки */
     }
 }
 
-/* Телефоны (до 576px)  мб еще делать iphone duo*/
+/* Мобильные телефоны (до 576px) */
 @media (max-width: 576px) {
     .products-grid {
-        grid-template-columns: 1fr; /* 1 колонка */
+        grid-template-columns: minmax(0, 1fr); /* Перестраиваем в 1 колонку на всю ширину */
     }
+
     .header-content {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         text-align: center;
     }
+
     .modal-content {
         width: 95%;
         padding: 20px;
