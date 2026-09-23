@@ -1,9 +1,9 @@
 // 1. Имитация базы данных товаров
 const PRODUCTS = [
-    { id: 1, name: "Беспроводные наушники", price: 4500 },
-    { id: 2, name: "Смарт-часы", price: 8900 },
-    { id: 3, name: "Игровая мышь", price: 2300 },
-    { id: 4, name: "Мембрановая клавиатура", price: 5600 },
+    { id: 1, name: "Беспроводные наушники", price: 4500, image: "images/headphones.jpeg" },
+    { id: 2, name: "Смарт-часы", price: 8900, image: "images/watches.jpeg" }, // Здесь точное название watches.jpeg
+    { id: 3, name: "Игровая мышь", price: 2300, image: "images/mouse.jpeg" },
+    { id: 4, name: "Механическая клавиатура", price: 5600, image: "images/keyboard.jpeg" },
 ];
 
 // 2. Инициализация корзины из localStorage или создание новой
@@ -27,6 +27,8 @@ function renderCatalog() {
         const card = document.createElement('article');
         card.className = 'product-card';
         card.innerHTML = `
+            <!-- Вставляем картинку товара -->
+            <img src="${product.image}" alt="${product.name}" class="product-image">
             <h3 class="product-title">${product.name}</h3>
             <p class="product-price">${product.price} руб.</p>
             <button class="btn" onclick="addToCart(${product.id})">Добавить в корзину</button>
