@@ -1,0 +1,260 @@
+/* =================     ================= */
+:root {
+    --espresso: #2B1A12;         /*  :   */
+    --espresso-light: #4A3125;   /*    hover- */
+    --mint: #B9E5C8;             /*       */
+    --mint-light: #DCEFE3;       /* -     */
+    --white: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*       */
+body {
+    background-color: var(--espresso);
+    color: var(--espresso);
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/*       */
+.app-container {
+    background: var(--mint);
+    width: 100%;
+    max-width: 600px;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+}
+
+/*   */
+header h1 {
+    font-size: 28px;
+    color: var(--espresso);
+    text-align: center;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/*    */
+.todo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+/*     */
+input, select, button {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 2px solid var(--espresso);
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    color: var(--espresso);
+    background-color: var(--white);
+}
+
+input:focus, select:focus {
+    background-color: var(--mint-light);
+    box-shadow: 0 0 0 3px rgba(43, 26, 18, 0.15);
+}
+
+input[type="text"] {
+    flex: 1;
+}
+
+/*     */
+.btn-main {
+    background-color: var(--espresso);
+    color: var(--mint);
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-main:hover {
+    background-color: var(--espresso-light);
+    transform: translateY(-1px);
+}
+
+/*   */
+.controls-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.filter-sort-row {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-sort-row select {
+    flex: 1;
+    cursor: pointer;
+}
+
+/*   */
+.todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*   */
+.todo-item {
+    background: var(--white);
+    border: 2px solid var(--espresso);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    cursor: grab;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:active {
+    cursor: grabbing;
+}
+
+/*    */
+.todo-item.dragging {
+    opacity: 0.4;
+    background: var(--mint-light);
+    border: 2px dashed var(--espresso);
+}
+
+.todo-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.todo-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--espresso);
+}
+
+.todo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.todo-text {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--espresso);
+}
+
+.todo-date {
+    font-size: 12px;
+    color: var(--espresso-light);
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+/*      ,      */
+.todo-item.completed {
+    background-color: var(--espresso);
+    border-color: var(--espresso);
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--mint);
+}
+
+.todo-item.completed .todo-date {
+    color: var(--mint);
+    opacity: 0.6;
+}
+
+.todo-item.completed .btn-icon {
+    filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(90deg); /*       */
+}
+
+/*   */
+.actions-row {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.btn-icon:hover {
+    background: rgba(43, 26, 18, 0.1);
+}
+
+/* - */
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.edit-input {
+    font-size: 16px;
+    padding: 6px;
+    width: 100%;
+}
+
+.edit-date {
+    font-size: 12px;
+    padding: 4px;
+    width: 100%;
+}
+
+/*     */
+@media (max-width: 480px) {
+    .form-row, .filter-sort-row {
+        flex-direction: column;
+    }
+    .app-container {
+        padding: 20px 15px;
+    }
+}
+

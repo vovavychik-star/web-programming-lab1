@@ -33,7 +33,7 @@ dateInput.required = true;
 const submitBtn = document.createElement('button');
 submitBtn.type = 'submit';
 submitBtn.className = 'btn-main';
-submitBtn.textContent = '';
+submitBtn.textContent = ' ';
 
 formRow.appendChild(textInput);
 formRow.appendChild(dateInput);
@@ -53,19 +53,32 @@ searchBar.placeholder = '    ...';
 const filterSortRow = document.createElement('div');
 filterSortRow.className = 'filter-sort-row';
 
+//        (DOM Option API)
 const filterSelect = document.createElement('select');
-filterSelect.innerHTML = `
-    <option value="all"> </option>
-    <option value="active"></option>
-    <option value="completed"></option>
-`;
+const filterOptions = [
+    { value: 'all', text: ' ' },
+    { value: 'active', text: '' },
+    { value: 'completed', text: '' }
+];
+filterOptions.forEach(opt => {
+    const option = document.createElement('option');
+    option.value = opt.value;
+    option.textContent = opt.text;
+    filterSelect.appendChild(option);
+});
 
 const sortSelect = document.createElement('select');
-sortSelect.innerHTML = `
-    <option value="none"> </option>
-    <option value="date-asc">  ( )</option>
-    <option value="date-desc">  ( )</option>
-`;
+const sortOptions = [
+    { value: 'none', text: ' ' },
+    { value: 'date-asc', text: '  ( )' },
+    { value: 'date-desc', text: '  ( )' }
+];
+sortOptions.forEach(opt => {
+    const option = document.createElement('option');
+    option.value = opt.value;
+    option.textContent = opt.text;
+    sortSelect.appendChild(option);
+});
 
 filterSortRow.appendChild(filterSelect);
 filterSortRow.appendChild(sortSelect);
@@ -78,17 +91,15 @@ const todoListContainer = document.createElement('ul');
 todoListContainer.className = 'todo-list';
 appContainer.appendChild(todoListContainer);
 
-//     
+//    
 body.prepend(appContainer);
 
 // =================   =================
 
-//  
 function saveToLocalStorage() {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-//        
 function renderTodos() {
     todoListContainer.innerHTML = '';
 
@@ -117,7 +128,7 @@ function renderTodos() {
     }
 
     if (filteredTodos.length === 0) {
-        todoListContainer.innerHTML = '<p style="text-align:center; opacity:0.6;">  </p>';
+        todoListContainer.innerHTML = '<p style="text-align:center; font-weight:600; opacity:0.6; padding: 10px;">  </p>';
         return;
     }
 
@@ -127,7 +138,6 @@ function renderTodos() {
         li.setAttribute('draggable', true);
         li.dataset.id = todo.id;
 
-        //    ( + )
         const leftDiv = document.createElement('div');
         leftDiv.className = 'todo-item-left';
 
@@ -141,7 +151,6 @@ function renderTodos() {
         infoDiv.className = 'todo-info';
 
         if (todo.isEditing) {
-            //  
             infoDiv.className = 'edit-container';
             const editTextInput = document.createElement('input');
             editTextInput.type = 'text';
@@ -156,7 +165,6 @@ function renderTodos() {
             infoDiv.appendChild(editTextInput);
             infoDiv.appendChild(editDateInput);
 
-            //  /
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'actions-row';
 
@@ -176,7 +184,6 @@ function renderTodos() {
             li.appendChild(infoDiv);
             li.appendChild(actionsDiv);
         } else {
-            //   
             const textSpan = document.createElement('span');
             textSpan.className = 'todo-text';
             textSpan.textContent = todo.text;
@@ -184,7 +191,6 @@ function renderTodos() {
             const dateSpan = document.createElement('span');
             dateSpan.className = 'todo-date';
             
-            //   
             const dateObj = new Date(todo.date);
             dateSpan.textContent = isNaN(dateObj) ? todo.date : dateObj.toLocaleDateString('ru-RU');
 
@@ -193,7 +199,6 @@ function renderTodos() {
             leftDiv.appendChild(checkbox);
             leftDiv.appendChild(infoDiv);
 
-            //   
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'actions-row';
 
@@ -214,30 +219,11 @@ function renderTodos() {
             li.appendChild(actionsDiv);
         }
 
-        //   Drag and Drop   
         setupDragAndDropEvents(li);
-
         todoListContainer.appendChild(li);
     });
 }
 
-//   
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const newTodo = {
-        id: Date.now().toString(),
-        text: textInput.value.trim(),
-        date: dateInput.value,
-        completed: false,
-        isEditing: false
-    };
-    todos.push(newTodo);
-    saveToLocalStorage();
-    renderTodos();
-    form.reset();
-});
-
-//   / 
 function toggleTodo(id) {
     const todo = todos.find(t => t.id === id);
     if (todo) {
@@ -247,14 +233,12 @@ function toggleTodo(id) {
     }
 }
 
-//  
 function deleteTodo(id) {
     todos = todos.filter(t => t.id !== id);
     saveToLocalStorage();
     renderTodos();
 }
 
-// /  
 function toggleEdit(id) {
     const todo = todos.find(t => t.id === id);
     if (todo) {
@@ -263,7 +247,6 @@ function toggleEdit(id) {
     }
 }
 
-//   
 function saveEdit(id, newText, newDate) {
     const todo = todos.find(t => t.id === id);
     if (todo && newText.trim() && newDate) {
@@ -275,12 +258,11 @@ function saveEdit(id, newText, newDate) {
     }
 }
 
-//    
 searchBar.addEventListener('input', renderTodos);
 filterSelect.addEventListener('change', renderTodos);
 sortSelect.addEventListener('change', renderTodos);
 
-// ================= DRAG AND DROP LOGIC =================
+// ================= DRAG AND DROP  =================
 function setupDragAndDropEvents(item) {
     item.addEventListener('dragstart', () => {
         setTimeout(() => item.classList.add('dragging'), 0);
@@ -289,7 +271,6 @@ function setupDragAndDropEvents(item) {
     item.addEventListener('dragend', () => {
         item.classList.remove('dragging');
         
-        //    todos       DOM
         const currentItems = [...todoListContainer.querySelectorAll('.todo-item')];
         const newOrderTodos = [];
         
@@ -304,5 +285,20 @@ function setupDragAndDropEvents(item) {
     });
 }
 
-//    
+todoListContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const draggingItem = todoListContainer.querySelector('.dragging');
+    if (!draggingItem) return;
+
+    const siblings = [...todoListContainer.querySelectorAll('.todo-item:not(.dragging)')];
+    
+    const nextSibling = siblings.find(sibling => {
+        const box = sibling.getBoundingClientRect();
+        return e.clientY <= box.top + box.height / 2;
+    });
+
+    todoListContainer.insertBefore(draggingItem, nextSibling);
+});
+
+renderTodos();
 
